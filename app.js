@@ -3,31 +3,40 @@ const app = express();
 const cors = require('cors');
 const port = 3000;
 
+//A place to store the dictators.
+let dictators = [];
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get('/getDictators', (req, res) => {
-    // const firstName=req.body.firstName;
-    // const lastName=req.body.lastName;
-    // const born=req.body.born;
-    // const death=req.body.death;
-    // const description=req.body.description;
-
-    // res.send({'firstName':firstName, 'lastName':lastName, 'born':born, 'death':death, 'description':description})
-    res.send('there is life on the moon!')
+//Adding the dictator to the array of dictators
+app.post('/postdictators', (req, res) => {
+    const dictator = req.body;
+    console.log(dictator);
+    dictators.push(dictator);
 });
 
-app.post('/postDictators', (req, res) => {
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const born = req.body.born;
-    const death = req.body.death;
-    const description = req.body.description;
 
-    res.send({ 'firstName': firstName, 'lastName': lastName, 'born': born, 'death': death, 'description': description })
+app.get('/getdictators', (req, res) => {
+    res.json(dictators)
 });
 
-app.listen(port, () => {
-    console.log(`listening on port ${port}`)
+app.delete('/delete', (req, res) => {
+    const dictator = req.body.index;
+    dictators.splice(dictator, 1);
+
 });
+
+// app.delete('/delete/:image', (req, res) => {
+//     const dictator = req.body.image;
+//     dictators = dictators.filter(i => {
+//         if (i.image !== image) {
+//             return true;
+//         }
+//         return false;
+//     });
+
+// });
+
+app.listen(port, () => console.log(`listening on port ${port}!`));
