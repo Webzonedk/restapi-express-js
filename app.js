@@ -13,30 +13,22 @@ app.use(cors());
 //Adding the dictator to the array of dictators
 app.post('/postdictators', (req, res) => {
     const dictator = req.body;
-    console.log(dictator);
     dictators.push(dictator);
+    console.log(dictator);
 });
 
-
+//getting the dictators
 app.get('/getdictators', (req, res) => {
     res.json(dictators)
+    console.log(dictators);
 });
 
-app.delete('/delete', (req, res) => {
+//deleting a specific dictator in the array
+app.delete('/deletedictators', (req, res) => {
     const dictator = req.body.index;
     dictators.splice(dictator, 1);
+    console.log(dictators);
 
 });
-
-// app.delete('/delete/:image', (req, res) => {
-//     const dictator = req.body.image;
-//     dictators = dictators.filter(i => {
-//         if (i.image !== image) {
-//             return true;
-//         }
-//         return false;
-//     });
-
-// });
 
 app.listen(port, () => console.log(`listening on port ${port}!`));
